@@ -26,3 +26,9 @@ I am a **self-taught software engineer** with **3+ years of experience** in **Py
 - **Encro** – A secure communication platform with real-time messaging & voice calls  
 - **Recipe Sharing Platform** – Chef monetization & community-based recipe sharing  
 
+## 🙌 Acknowledgment  
+This portfolio is built using concepts from the **SaaS Foundations** template by [Coding for Entrepreneurs](https://github.com/codingforentrepreneurs/SaaS-Foundations/tree/main). Special thanks for their excellent open-source contribution!  
+
+---
+
+💡 **Looking for a skilled full-stack developer?** Let’s build something awesome together! 🚀  
