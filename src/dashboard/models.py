@@ -22,8 +22,6 @@ class Inquiry(models.Model):
         return f"{self.name} - {self.get_inquiry_type_display()}"
 
 
-def temp_image():
-    url = 'https://repository-images.githubusercontent.com/260390503/8c2fdf88-e748-4a4b-9b47-631bd8b90d98'
 
 class Project(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -32,7 +30,6 @@ class Project(models.Model):
     github_url = models.URLField(null=True, blank=True)
     live_demo_url = models.URLField(null=True, blank=True)
     # image = models.ImageField(upload_to='project_images/', null=True, blank=True)
-    image = temp_image()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     category = models.CharField(max_length=100, null=True, blank=True)
