@@ -4,7 +4,15 @@
     <title>{% block head_title %}Rayyan Aqil{% endblock head_title %}</title>
     {% include 'base/css.html' %}
 </head>
-<body  style="background-color: black;">
+<body  >
+    <style>
+        /* Page Background */
+    body {
+        background: linear-gradient(135deg, #161616, #000000, #151515);
+        color: #f1f5f9; /* Light text */
+        font-family: 'Arial', sans-serif;
+    }
+    </style>
     <div class="antialiased ">
         {% include 'dashboard/nav.html' %}
 
