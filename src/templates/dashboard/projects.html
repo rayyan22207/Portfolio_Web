@@ -1,58 +1,22 @@
-{% load static %}
+{% extends 'dashboard/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .project-card {
-            background: #ffffff;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .project-card img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        .project-links {
-            margin-top: 10px;
-        }
-        .project-links a {
-            display: inline-block;
-            margin-right: 10px;
-            text-decoration: none;
-            color: #007bff;
-        }
-    </style>
-</head>
+
+{% block head_title %} {{ block.super }}{% endblock head_title %}
+
+
+{% block content %}
 <body>
 
-<div class="container">
-    <h1>My Projects</h1>
-    
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
     {% for project in projects %}
+        <div
+        class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+        ></div>
+</div>
+
+    
         <div class="project-card">
             {% if project.image %}
                 <img src="{{ project.image.url }}" alt="{{ project.title }}">
@@ -76,7 +40,7 @@
     {% empty %}
         <p>No projects available yet.</p>
     {% endfor %}
-</div>
+
 
 </body>
-</html>
+{% endblock %}

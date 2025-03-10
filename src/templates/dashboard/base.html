@@ -4,10 +4,17 @@
     <title>{% block head_title %}Rayyan Aqil{% endblock head_title %}</title>
     {% include 'base/css.html' %}
 </head>
-<body>
-    {% include 'base/messages.html' with messages=messages %}
-    {% block content %}
-    {% endblock content %}
+<body  style="background-color: black;">
+    <div class="antialiased ">
+        {% include 'dashboard/nav.html' %}
+
+        <main class="p-4 h-auto pt-20">
+        {% include 'base/messages.html' with messages=messages %}
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    </div>
     {% include 'base/js.html' %}
 </body>
 </html>
