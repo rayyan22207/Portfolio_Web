@@ -10,5 +10,8 @@ def projects(request):
 def dashboard_view(request):
     return render(request, "dashboard/main.html", {})
 
-def about(request):
-    return render(request, 'dashboard/about.html')
+def contact(request):
+    return render(request, 'dashboard/contact.html')
+
+def note(request):
+    return render(request, "dashboard/note.html", {})

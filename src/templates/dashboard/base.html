@@ -6,104 +6,119 @@
     
 </head>
 <body  >
+  <body>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            font-family: 'Share Tech Mono', monospace;
-            color: #00ff00;
-            height: 100%;
-          }
-          
-          .terminal-outer {
-            padding: 3rem;
-            height: 100vh;
-            box-sizing: border-box;
-          }
-          
-          .terminal-frame {
-            height: 100%;
-            width: 100%;
-            margin: 0 auto;
-            border: 2px solid #00ff00;
-            border-radius: 6px;
-            background-color: black;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 10px #00ff00aa;
-            overflow: hidden;
-          }
-          
-          .terminal-header {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            background: #111;
-            border-bottom: 1px solid #00ff00;
-            justify-content: space-between;
-          }
-          
-          .terminal-dots {
-            display: flex;
-            gap: 8px;
-          }
-          
-          .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-          }
-          
-          .red { background: #ff5f56; }
-          .yellow { background: #ffbd2e; }
-          .green { background: #27c93f; }
-          
-          .terminal-nav a {
-            color: #00ff00;
-            margin-left: 1rem;
-            text-decoration: none;
-            font-size: 1rem;
-          }
-          
-          .terminal-nav a:hover {
-            text-decoration: underline;
-          }
-          
-          .terminal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 2rem;
-            line-height: 1.6;
-          }
-          
-          .terminal-body section {
-            margin-bottom: 3rem;
-          }
-          /* Terminal-style custom scrollbar */
-.terminal-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.terminal-body::-webkit-scrollbar-track {
-  background: #111; /* dark track like terminal bg */
-}
-
-.terminal-body::-webkit-scrollbar-thumb {
-  background-color: #00ff00; /* terminal green */
-  border-radius: 4px;
-  border: 2px solid #111;
-}
-
-/* Firefox */
-.terminal-body {
-  scrollbar-width: thin;
-  scrollbar-color: #00ff00 #111;
-}
-
-          
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden; /* disables outside scroll */
+        background-color: #000;
+        font-family: 'Share Tech Mono', monospace;
+        color: #00ff00;
+      }
+  
+      .terminal-outer {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 2rem;
+      }
+  
+      .terminal-frame {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #00ff00;
+        border-radius: 6px;
+        background-color: black;
+        box-shadow: 0 0 10px #00ff00aa;
+        overflow: hidden;
+      }
+  
+      .terminal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        background: #111;
+        border-bottom: 1px solid #00ff00;
+      }
+  
+      .terminal-dots {
+        display: flex;
+        gap: 8px;
+      }
+  
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+  
+      .red { background: #ff5f56; }
+      .yellow { background: #ffbd2e; }
+      .green { background: #27c93f; }
+  
+      .terminal-nav a {
+        color: #00ff00;
+        margin-left: 1rem;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+  
+      .terminal-nav a:hover {
+        text-decoration: underline;
+      }
+  
+      .terminal-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+  
+      .terminal-body section {
+        margin-bottom: 3rem;
+      }
+  
+      /* Custom Scrollbar */
+      .terminal-body::-webkit-scrollbar {
+        width: 8px;
+      }
+  
+      .terminal-body::-webkit-scrollbar-track {
+        background: #111;
+      }
+  
+      .terminal-body::-webkit-scrollbar-thumb {
+        background-color: #00ff00;
+        border-radius: 4px;
+        border: 2px solid #111;
+      }
+  
+      .terminal-body {
+        scrollbar-width: thin;
+        scrollbar-color: #00ff00 #111;
+      }
+  
+      footer.footer {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: #aaa;
+        font-size: 0.85rem;
+        font-family: monospace;
+      }
     </style>
+  
     <div class="terminal-outer">
         <div class="terminal-frame">
           <!-- Terminal Nav -->
@@ -115,8 +130,9 @@
             </div>
             <div class="terminal-nav">
               <a href="/">Home</a>
+              <a href="{% url 'note' %}"><Strong>Note</Strong></a>
               <a href="{% url 'projects' %}">Projects</a>
-              <a href="#contact">Contact</a>
+              <a href="{% url 'contact' %}">Contact</a>
             </div>
           </div>
       
@@ -129,6 +145,9 @@
           </div>
         </div>
       </div>
+      <footer class="footer">
+        <p>&copy; Rayyan Aqil — Built by me. All rights reserved.</p>
+      </footer>
       
     {% include 'base/js.html' %}
 </body>
