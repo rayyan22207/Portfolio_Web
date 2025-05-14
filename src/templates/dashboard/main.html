@@ -5,12 +5,43 @@
 
 
 <section id="hero">
-  <div class="console-container">
-    <div id="console-text"></div>
+  <div class="terminal-frame">
+    <div class="terminal-header">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="console-container">
+      <div id="console-text"></div>
+    </div>
   </div>
 </section>
 
+
 <style>
+  .cmd-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  
+  .cmd-btn {
+    font-family: 'Share Tech Mono', monospace;
+    background: transparent;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .cmd-btn:hover {
+    background: #00ff00;
+    color: black;
+  }
+  
   html, body {
     margin: 0;
     padding: 0;
@@ -18,14 +49,68 @@
     overflow: hidden; /* Disable full-page scroll */
   }
   
+  .terminal-frame {
+    border: 2px solid #00ff00;
+    border-radius: 6px;
+    background-color: black;
+    box-shadow: 0 0 10px #00ff00aa;
+    width: 900px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: #111;
+    border-bottom: 1px solid #00ff00;
+  }
+  
+  .terminal-header .dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-block;
+  }
+  
+  .dot.red {
+    background: #ff5f56;
+  }
+  
+  .dot.yellow {
+    background: #ffbd2e;
+  }
+  
+  .dot.green {
+    background: #27c93f;
+  }
+  
+  .console-container {
+    padding: 1.25rem;
+    width: 100%;
+    height: 100%;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.25rem;
+    color: #00ff0086;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+  }
+  
   
   #hero {
     height: 100vh;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  
 
   .console-container {
     width: 90%;
@@ -43,82 +128,119 @@
   }
   
 </style>
-
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const lines = [
+    const mainLines = [
       "Rayyan Aqil",
       "Software Developer",
-      "I am a software developer specializing in building web applications.",
-      "Welcome to my portfolio!",
-      "",
-      "About Me",
-      "I'm a self-taught developer with 3+ years of experience using Django, Flutter, Firebase, and modern web stacks.",
-      "Currently building micro SaaS tools and real-world business systems.",
-      "I value clean code, automation, and shipping meaningful work.",
-      "Let's build something awesome."
+      "Turning ideas into software that works.",
+      " ",
+      "Hi, I'm Rayyan — a self-taught developer passionate about clean code, automation, and building impactful tools.",
+      "Currently focused on micro SaaS products and real-world systems using Django, Flutter, and Firebase.",
+      " ",
+      "Welcome to my portfolio.",
+      "links >"
+    ];
+
+    const linkLines = [
+      "> GitHub:    https://github.com/rayyanaqil",
+      "> LinkedIn:  https://linkedin.com/in/rayyanaqil",
+      "> Instagram: https://instagram.com/rayyanaqil"
     ];
 
     const container = document.getElementById("console-text");
     const cursor = " █";
 
-    // Web Audio API for typing sound
+    let phase = "main";
+    let lineIndex = 0;
+    let charIndex = 0;
+
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playTypingSound() {
       const oscillator = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
       oscillator.type = 'triangle';
       oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
       gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-
       oscillator.connect(gain);
       gain.connect(audioCtx.destination);
-
       oscillator.start();
       oscillator.stop(audioCtx.currentTime + 0.05);
     }
 
-    let lineIndex = 0;
-    let charIndex = 0;
-
     function typeNextChar() {
+      const lines = phase === "main" ? mainLines : linkLines;
+
       if (lineIndex >= lines.length) {
         container.innerHTML = container.innerHTML.replace(cursor, "") + cursor;
+
+        // Make "links >" clickable
+        if (phase === "main") {
+          const linesText = container.innerText.split("\n");
+          const lastLine = linesText[linesText.length - 1].trim();
+          if (lastLine === "links >") {
+            container.innerHTML = container.innerHTML.replace(
+              "links >" + cursor,
+              `<span id="linksTrigger" style="text-decoration: underline; cursor: pointer;">links ></span>${cursor}`
+            );
+
+            setTimeout(() => {
+              const trigger = document.getElementById("linksTrigger");
+              if (trigger) {
+                trigger.addEventListener("click", () => {
+                  startTypingLines("links");
+                });
+              }
+            }, 10);
+          }
+        }
+
+        // Add back arrow when links finish
+        if (phase === "links" && !document.getElementById("backTrigger")) {
+          container.innerHTML =
+            `<span id="backTrigger" style="text-decoration: underline; cursor: pointer;"><</span>\n` +
+            container.innerHTML;
+
+          setTimeout(() => {
+            const back = document.getElementById("backTrigger");
+            if (back) {
+              back.addEventListener("click", () => {
+                startTypingLines("main");
+              });
+            }
+          }, 10);
+        }
+
         return;
       }
-    
+
       const currentLine = lines[lineIndex];
-      const existingLines = container.innerHTML.split("\n").filter(Boolean);
+      const cleanText = container.innerText.split("\n").filter(Boolean);
       const currentText = currentLine.substring(0, charIndex + 1);
-      const newContent = [...existingLines.slice(0, lineIndex), currentText].join("\n");
-    
-      container.innerHTML = newContent + cursor;
-    
+      const updated = [...cleanText.slice(0, lineIndex), currentText].join("\n");
+      container.innerHTML = updated + cursor;
+
       charIndex++;
-    
+
       if (charIndex < currentLine.length) {
         playTypingSound();
         setTimeout(typeNextChar, 50);
       } else {
-        // Check if this is the "trigger" line
-        if (currentLine === "Rayyan Aqil") {
-          const nav = document.getElementById("custom-nav");
-          if (nav) {
-            nav.style.display = "flex";
-            setTimeout(() => nav.classList.add("visible"), 10); // trigger animation
-          }
-        }
-        
-    
         charIndex = 0;
         lineIndex++;
         setTimeout(typeNextChar, 500);
       }
     }
-    
+
+    function startTypingLines(mode) {
+      phase = mode;
+      lineIndex = 0;
+      charIndex = 0;
+      container.innerHTML = "";
+      typeNextChar();
+    }
+
     typeNextChar();
 
     // Blinking Cursor
@@ -131,4 +253,6 @@
     }, 500);
   });
 </script>
+
+
 {% endblock %}
