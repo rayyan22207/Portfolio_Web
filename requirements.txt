@@ -6,5 +6,5 @@ dj-database-url
 requests
 whitenoise
 django-allauth[socialaccount]
-django-allauth-ui
+django-allauth-ui==1.0.0
 django-widget-tweaks
