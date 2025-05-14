@@ -3,26 +3,27 @@
 <head>
     <title>{% block head_title %}Rayyan Aqil{% endblock head_title %}</title>
     {% include 'base/css.html' %}
+    
 </head>
 <body  >
     <style>
         /* Page Background */
     body {
-        background: linear-gradient(135deg, #161616, #000000, #151515);
+        background: #000000f9;
         color: #f1f5f9; /* Light text */
         font-family: 'Arial', sans-serif;
     }
     </style>
-    <div class="antialiased ">
+    <!-- <div class="antialiased "> -->
         {% include 'dashboard/nav.html' %}
 
-        <main class="p-4 h-auto pt-20">
+        <!-- <main class="p-4 h-auto pt-20"> -->
         {% include 'base/messages.html' with messages=messages %}
         {% block content %}
         {% endblock content %}
-    </main>
+    <!-- </main> -->
 
-    </div>
+    <!-- </div> -->
     {% include 'base/js.html' %}
 </body>
 </html>

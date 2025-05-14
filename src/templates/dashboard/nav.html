@@ -1,86 +1,41 @@
 <style>
-    /* Make navbar sticky and translucent */
-    .custom-navbar {
-      position: sticky;
-      top: 0;
-      background-color: rgba(86, 85, 85, 0.384); /* Translucent gray */
-      backdrop-filter: blur(8px); /* Blur effect */
-      z-index: 1000;
-      border-width: 2px;
-      border-color: rgba(169, 169, 169, 0.477);
-    }
-  /* Navbar links */
-.custom-navbar a {
-    color: rgba(169, 167, 167, 0.8); /* Light gray text */
-    position: relative;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+  #custom-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 1rem;
+  
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+    pointer-events: none; /* prevent interaction until visible */
   }
   
-  /* Create the underline effect */
-  .custom-navbar a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -2px; /* Adjust the position */
-    width: 0;
-    height: 2px;
-    background-color: #60ebfa; /* Light blue */
-    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-    transform-origin: center;
+  #custom-nav.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
   
-  /* Navbar links hover effect */
-  .custom-navbar a:hover {
-    color: #60ebfa; /* Light blue */
+  
+  .cmd-btn {
+    font-family: monospace;
+    background: transparent;
+    color: #00ff00;
+    border: 1px solid #00ff0086;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s;
   }
   
-  /* Expand underline from center */
-  .custom-navbar a:hover::after {
-    width: 100%;
-    left: 0;
+  .cmd-btn:hover {
+    background: #00ff0086;
+    color: black;
   }
-  
-    /* Navbar buttons */
-    .custom-navbar button {
-      background-color: rgba(75, 85, 99, 0.8); /* Dark gray */
-      transition: background-color 0.3s ease-in-out;
-    }
-  
-    /* Navbar button hover effect */
-    .custom-navbar button:hover {
-      background-color: #3b82f6; /* Blue */
-    }
-  </style>
-  
-  <nav class="custom-navbar border-gray-700">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Flowbite</span>
-      </a>
-      <button data-collapse-toggle="navbar-solid-bg" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
-      </button>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
-        <ul class="flex flex-col font-medium mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-white bg-gray-700 rounded-sm md:bg-transparent" aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0">Services</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0">Pricing</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
+</style>
+<div id="custom-nav" style="display: none;" class="cmd-nav">
+  <button class="cmd-btn">About</button>
+  <button class="cmd-btn">Projects</button>
+  <button class="cmd-btn">Contact</button>
+</div>

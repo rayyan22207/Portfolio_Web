@@ -1,59 +1,134 @@
-{% extends 'dashboard/base.html' %}
-
-
-{% block head_title %} {{ block.super }}{% endblock head_title %}
-
+{% extends "dashboard/base.html" %}
+{% load static %}
 
 {% block content %}
 
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-    <div
-      class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
+<section id="hero">
+  <div class="console-container">
+    <div id="console-text"></div>
   </div>
-  <div
-    class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-  ></div>
-  <div class="grid grid-cols-2 gap-4 mb-4">
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-  </div>
-  <div
-    class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-  ></div>
-  <div class="grid grid-cols-2 gap-4">
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-  </div>
+</section>
 
-  {% endblock content %}
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    overflow: hidden; /* Disable full-page scroll */
+  }
+  
+  
+  #hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .console-container {
+    width: 90%;
+    max-width: 950px;
+    max-height: 90vh;
+    overflow: hidden;
+    
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.25rem;
+    color: #00ff0086;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    
+  }
+  
+</style>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const lines = [
+      "Rayyan Aqil",
+      "Software Developer",
+      "I am a software developer specializing in building web applications.",
+      "Welcome to my portfolio!",
+      "",
+      "About Me",
+      "I'm a self-taught developer with 3+ years of experience using Django, Flutter, Firebase, and modern web stacks.",
+      "Currently building micro SaaS tools and real-world business systems.",
+      "I value clean code, automation, and shipping meaningful work.",
+      "Let's build something awesome."
+    ];
+
+    const container = document.getElementById("console-text");
+    const cursor = " █";
+
+    // Web Audio API for typing sound
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playTypingSound() {
+      const oscillator = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+      oscillator.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.05);
+    }
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeNextChar() {
+      if (lineIndex >= lines.length) {
+        container.innerHTML = container.innerHTML.replace(cursor, "") + cursor;
+        return;
+      }
+    
+      const currentLine = lines[lineIndex];
+      const existingLines = container.innerHTML.split("\n").filter(Boolean);
+      const currentText = currentLine.substring(0, charIndex + 1);
+      const newContent = [...existingLines.slice(0, lineIndex), currentText].join("\n");
+    
+      container.innerHTML = newContent + cursor;
+    
+      charIndex++;
+    
+      if (charIndex < currentLine.length) {
+        playTypingSound();
+        setTimeout(typeNextChar, 50);
+      } else {
+        // Check if this is the "trigger" line
+        if (currentLine === "Rayyan Aqil") {
+          const nav = document.getElementById("custom-nav");
+          if (nav) {
+            nav.style.display = "flex";
+            setTimeout(() => nav.classList.add("visible"), 10); // trigger animation
+          }
+        }
+        
+    
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(typeNextChar, 500);
+      }
+    }
+    
+    typeNextChar();
+
+    // Blinking Cursor
+    setInterval(() => {
+      if (container.innerHTML.endsWith(cursor)) {
+        container.innerHTML = container.innerHTML.slice(0, -cursor.length);
+      } else {
+        container.innerHTML += cursor;
+      }
+    }, 500);
+  });
+</script>
+{% endblock %}
