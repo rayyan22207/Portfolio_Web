@@ -6,38 +6,29 @@
 <section id="blog">
   <h1 class="heading">~/blog$</h1>
 
+  {% for post in posts %}
   <div class="blog-post">
-    <p class="cmd-title">post_001.txt</p>
-    <p class="cmd-meta"># Date: 2025-05-15 | Tags: micro-saas, django, devlife</p>
-    <p class="cmd-body">
-      Just wrapped up a core module for my invoicing micro SaaS. It's built in Django, fully modular, and supports multiple PDF engines. It’s been exhausting but worth it. Still figuring out pricing. More updates soon.
-    </p>
-  </div>
+    <p class="cmd-title">{{ post.title }}</p>
+    <p class="cmd-meta"># Date: {{ post.date }} | Tags: {{ post.tags|join:", " }}</p>
+    <p class="cmd-body">{{ post.content }}</p>
 
-  <div class="blog-post">
-    <p class="cmd-title">post_002.txt</p>
-    <p class="cmd-meta"># Date: 2025-04-28 | Tags: thoughts, terminal, design</p>
-    <p class="cmd-body">
-      I’ve been obsessed with creating command-line inspired UIs. This portfolio is my first try — feels fun and different. Might release a template version if it clicks with others.
-    </p>
-  </div>
+    {% if post.image %}
+    <img src="{{ post.image }}" alt="related image" class="media-img">
+    {% endif %}
 
-  <div class="blog-post">
-    <p class="cmd-title">post_003.txt</p>
-    <p class="cmd-meta"># Date: 2025-04-05 | Tags: projects, ai, jarvis</p>
-    <p class="cmd-body">
-      Started working on my version of a Jarvis-like assistant — simple CLI interface with voice commands. Still rough, but fun to mess around with Python audio and NLP.
-    </p>
+    {% if post.video %}
+    <div class="media-video">
+      <iframe width="100%" height="300" src="{{ post.video }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+    {% endif %}
   </div>
-
+  {% endfor %}
 </section>
 
 <style>
   #blog {
     padding-top: 1rem;
   }
-
-  
 
   .blog-post {
     border-left: 2px solid #00ff00;
@@ -65,6 +56,20 @@
     font-size: 1rem;
     line-height: 1.6;
     white-space: pre-wrap;
+    margin-bottom: 1rem;
+  }
+
+  .media-img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    border: 1px solid #00ff00;
+  }
+
+  .media-video iframe {
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 5px #00ff0055;
   }
 </style>
 
