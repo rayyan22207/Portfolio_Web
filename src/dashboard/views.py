@@ -15,3 +15,6 @@ def contact(request):
 
 def note(request):
     return render(request, "dashboard/note.html", {})
+
+def blog(request):
+    return render(request, "dashboard/blog.html", {})

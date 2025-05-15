@@ -18,7 +18,12 @@
         font-family: 'Share Tech Mono', monospace;
         color: #00ff00;
       }
-  
+      .heading {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.5rem;
+        color: #00ff00;
+        margin-bottom: 2rem;
+      }
       .terminal-outer {
         height: 100%;
         width: 100%;
@@ -132,6 +137,7 @@
               <a href="/">Home</a>
               <a href="{% url 'note' %}"><Strong>Note</Strong></a>
               <a href="{% url 'projects' %}">Projects</a>
+              <a href="{% url 'blog' %}">Blog</a>
               <a href="{% url 'contact' %}">Contact</a>
             </div>
           </div>

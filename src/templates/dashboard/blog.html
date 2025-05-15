@@ -1,0 +1,71 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section id="blog">
+  <h1 class="heading">~/blog$</h1>
+
+  <div class="blog-post">
+    <p class="cmd-title">post_001.txt</p>
+    <p class="cmd-meta"># Date: 2025-05-15 | Tags: micro-saas, django, devlife</p>
+    <p class="cmd-body">
+      Just wrapped up a core module for my invoicing micro SaaS. It's built in Django, fully modular, and supports multiple PDF engines. It’s been exhausting but worth it. Still figuring out pricing. More updates soon.
+    </p>
+  </div>
+
+  <div class="blog-post">
+    <p class="cmd-title">post_002.txt</p>
+    <p class="cmd-meta"># Date: 2025-04-28 | Tags: thoughts, terminal, design</p>
+    <p class="cmd-body">
+      I’ve been obsessed with creating command-line inspired UIs. This portfolio is my first try — feels fun and different. Might release a template version if it clicks with others.
+    </p>
+  </div>
+
+  <div class="blog-post">
+    <p class="cmd-title">post_003.txt</p>
+    <p class="cmd-meta"># Date: 2025-04-05 | Tags: projects, ai, jarvis</p>
+    <p class="cmd-body">
+      Started working on my version of a Jarvis-like assistant — simple CLI interface with voice commands. Still rough, but fun to mess around with Python audio and NLP.
+    </p>
+  </div>
+
+</section>
+
+<style>
+  #blog {
+    padding-top: 1rem;
+  }
+
+  
+
+  .blog-post {
+    border-left: 2px solid #00ff00;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    background: #0a0a0a;
+    box-shadow: 0 0 5px #00ff0055;
+  }
+
+  .cmd-title {
+    font-weight: bold;
+    color: #00ff00;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .cmd-meta {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+  }
+
+  .cmd-body {
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+</style>
+
+{% endblock %}
