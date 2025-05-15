@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import InquiryForm
 from .models import Project
 
 def projects(request):
@@ -12,6 +12,23 @@ def dashboard_view(request):
 
 def contact(request):
     return render(request, 'dashboard/contact.html')
+
+
+
+def contact(request):
+    form = InquiryForm(request.POST or None)
+    success = False
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        success = True
+        form = InquiryForm()  # clear the form
+
+    return render(request, 'dashboard/contact.html', {
+        'form': form,
+        'success': success,
+    })
+
 
 def note(request):
     return render(request, "dashboard/note.html", {})

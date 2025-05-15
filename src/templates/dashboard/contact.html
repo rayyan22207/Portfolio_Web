@@ -2,29 +2,140 @@
 {% load static %}
 
 {% block content %}
-
 <section id="contact">
   <h1 class="heading">~/contact$</h1>
-  <p>
-    If you're reaching out, please mention where you got my contact info from.
-    I usually reply within <strong>24–48 hours</strong>, depending on my schedule.
-  </p>
-  <p>
-    The best way to reach me is through <strong>WhatsApp or email</strong>.
-  </p>
 
-  <ul>
-    <li><strong>Email:</strong> <a href="mailto:rayyan22207@gmail.com">rayyan22207@gmail.com</a></li>
-    <li><strong>Phone / WhatsApp:</strong> <a href="https://wa.me/923292020287" target="_blank">+92 329 2020287</a></li>
-    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rayyan-aqil-4a1a95195/" target="_blank">rayyan-aqil</a></li>
-    <li><strong>GitHub:</strong> <a href="https://github.com/rayyan22207" target="_blank">github.com/rayyan22207</a></li>
-    <li><strong>Dev Instagram:</strong> <a href="https://www.instagram.com/rayyan.developer/" target="_blank">@rayyan.developer</a></li>
-    <li><strong>Personal Instagram:</strong> <a href="https://www.instagram.com/rayyan22207/" target="_blank">@rayyan22207</a></li>
-  </ul>
+  <div class="contact-grid">
+    <!-- LEFT SIDE: Contact Info -->
+    <div class="contact-info">
+      <p>
+        If you're reaching out, please mention where you got my contact info from.
+        I usually reply within <strong>24–48 hours</strong>, depending on my schedule.
+      </p>
+      <p>The best way to reach me is through <strong>WhatsApp or email</strong>.</p>
 
-  <p>
-    I appreciate direct and respectful communication. If I don't respond right away, I will follow up as soon as I can.
-  </p>
+      <ul class="contact-links">
+        <li><strong>Email:</strong> <a href="mailto:rayyan22207@gmail.com">rayyan22207@gmail.com</a></li>
+        <li><strong>WhatsApp:</strong> <a href="https://wa.me/923292020287" target="_blank">+92 329 2020287</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rayyan-aqil-4a1a95195/" target="_blank">rayyan-aqil</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/rayyan22207" target="_blank">github.com/rayyan22207</a></li>
+        <li><strong>Instagram (Dev):</strong> <a href="https://www.instagram.com/rayyan.developer/" target="_blank">@rayyan.developer</a></li>
+        <li><strong>Instagram (Personal):</strong> <a href="https://www.instagram.com/rayyan22207/" target="_blank">@rayyan22207</a></li>
+      </ul>
+
+      <p>I appreciate direct and respectful communication. I'll follow up as soon as I can.</p>
+    </div>
+
+    <!-- RIGHT SIDE: Inquiry Form -->
+    <div class="contact-form">
+      <h2 class="heading">~/submit_inquiry$</h2>
+
+      {% if success %}
+        <p class="success-msg">✔ Your message has been submitted successfully!</p>
+      {% endif %}
+
+      <form method="post" class="cmd-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="cmd-btn">Send</button>
+      </form>
+    </div>
+  </div>
 </section>
 
+<style>
+  #contact {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #00ff00;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+    color: #00ff00;
+    margin-bottom: 2rem;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      flex-direction: row;
+    }
+  }
+
+  .contact-info, .contact-form {
+    flex: 1;
+  }
+
+  .contact-links {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-links a {
+    color: #00ff00;
+    text-decoration: underline;
+  }
+
+  .contact-links a:hover {
+    color: #ffffff;
+  }
+
+  .success-msg {
+    color: #00ff00;
+    background: #111;
+    padding: 0.5rem 1rem;
+    border-left: 3px solid #00ff00;
+    margin-bottom: 1rem;
+  }
+
+  .cmd-form p {
+    margin-bottom: 1.5rem;
+  }
+
+  .cmd-form input[type="text"],
+  .cmd-form input[type="email"],
+  .cmd-form select,
+  .cmd-form textarea {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 0.6rem;
+    font-family: monospace;
+    font-size: 1rem;
+  }
+
+  .cmd-form textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  .cmd-btn {
+    background: black;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    font-family: monospace;
+    transition: background 0.3s;
+  }
+
+  .cmd-btn:hover {
+    background: #00ff00;
+    color: black;
+  }
+</style>
 {% endblock %}
