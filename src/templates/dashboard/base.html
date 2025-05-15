@@ -3,7 +3,19 @@
 <head>
     <title>{% block head_title %}Rayyan Aqil{% endblock head_title %}</title>
     {% include 'base/css.html' %}
+
+{% if not debug %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZG7JMK2FRG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
     
+      gtag('config', 'G-ZG7JMK2FRG');
+    </script>
+{% endif %}
+
 </head>
 <body  >
   <body>
